@@ -19,12 +19,14 @@
 <h1>The Dream Catcher</h1>
 <h3>Search for a Dream Symbol</h3>
 
+<div class="container">
+
 <!-- Form to search for symbol in order to get a dream interpretation -->
-<form class="search_symbol">
-    Please enter a symbol: <label for="symbol_choice"></label>
-    <input type="text" id="symbol_choice" name="symbol_choice">
+<<form class="search_symbol" action="show_dream_info.php" method="GET">
+    <?php generateSymbolDropdown(); ?>
     <input type="submit" id="submit" value="Search">
 </form>
+
 
 
 <!-- Form to add dream symbol, edit dream symbol, or delete dream symbol -->
@@ -91,4 +93,5 @@
     <?php echo generateSymbolDropdown(); ?> 
 </div>
 
-<div><a href="show_dream_info.php">Show all Dream Symbols</a></div<a href="#" onclick="fetchDreamSymbols(apiKey); return false;">View Dream Symbols</a>
+<div><a href="view_all_symbols.php">Show all Dream Symbols</a></div<a href="#" onclick="fetchDreamSymbols(apiKey); return false;">View Dream Symbols</a>
+</div>

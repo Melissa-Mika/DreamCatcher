@@ -44,7 +44,7 @@ else {
 }
 
 $_SESSION['api_key'] = $apiKey;
-header("Location: ./view/registration_success.php");
+header("Location: ../view/registration_success.php");
 exit;
 
 ?>

@@ -8,16 +8,18 @@ function generateSymbolDropdown() {
     global $db; // Ensure that $db is accessible within the function
 
     // sequel statement to retrieve the symbolIDs and the symbol names from the database
-    $sql = "SELECT symbolID, symbol FROM dream_symbols";
+    $sql = "SELECT symbolID, symbol FROM dream_symbols ORDER BY symbol ASC";
     $qry = $db->query($sql);
     $symbols = $qry->fetchAll(PDO::FETCH_ASSOC);
 
     $dropdownHTML = '<select id="symbolID" name="symbolID" required>';
     $dropdownHTML .= '<option value="" disabled selected>Select a Symbol</option>';
     
+    echo '<select name="symbol">';
     foreach ($symbols as $symbol) {
-        $dropdownHTML .= '<option value="' . htmlspecialchars($symbol['symbolID']) . '">' . htmlspecialchars($symbol['symbol']) . '</option>';
+        echo '<option value="' . htmlspecialchars($symbol['symbol']) . '">' . htmlspecialchars($symbol['symbol']) . '</option>';
     }
+    echo '</select>';
 
     $dropdownHTML .= '</select>';
     return $dropdownHTML;
@@ -44,7 +46,7 @@ function getAllDreamSymbols() {
 
 function addSymbolToDatabase()
 {
-    
+
 }
 
 

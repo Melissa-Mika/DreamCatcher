@@ -1,8 +1,9 @@
 
-<?php include "./view/nav.php";?>
+<?php include "./view/nav.php"?>
 <?php include "model/database.php";?>
-<?php require_once "./model/functions.php";
+<?php require_once "model/functions.php";?>
 
+<?php
 /****** Form handling for the add, dit , and delete symbol forms *******/
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
@@ -68,9 +69,7 @@ Please register to obtain API key:
 <div id="dreamInfo"></div>
 
 
- 
-
-    <!-- JavaScript to talk to the api-->
+ <!-- JavaScript to talk to the api-->
     <script>
         // Function to fetch dream symbol info and update the DOM
         function getDreamInfo() {
@@ -92,9 +91,6 @@ Please register to obtain API key:
         // Call the function on page load
         getDreamInfo();
     </script>
-
-
-
 
 </body>
 </html>

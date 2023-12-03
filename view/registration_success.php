@@ -2,6 +2,9 @@
 <?php
 session_start();
 
+include "../model/functions.php";
+include "./nav.php";
+include "../model/header.php";
 
 // User is redirected back to index page if there is no API key stored in the session
 if (empty($_SESSION['api_key'])) {
@@ -9,19 +12,16 @@ if (empty($_SESSION['api_key'])) {
     exit;
 }
 
-include "model/functions.php";
-include "nav.php";
-include "model/header.php";
-
 $symbols = getAllDreamSymbols();
 
 ?>
 
-<h1>Registration Successful</h1>
-<h4>Your API key is: <?php echo htmlspecialchars($_SESSION['api_key']); ?></h4>
-
 <h1>Welcome to The Dream Catcher</h1>
 <h2>A Dream Interpreter</h2>
+
+<div class="container">
+<h3>Registration Successful</h3>
+<h4>Your API key is: <?php echo htmlspecialchars($_SESSION['api_key']); ?></h4>
 
 <h3>Select a Dream Symbol</h3>
     <select id="dreamSymbol" onchange="getInterpretation()">
@@ -33,6 +33,7 @@ $symbols = getAllDreamSymbols();
     </select>
 
     <div id="interpretation">
+    </div>
 
     <script>
     function getInterpretation() {
@@ -42,7 +43,7 @@ $symbols = getAllDreamSymbols();
         var apiKey = <?php echo json_encode($_SESSION['api_key']); ?>;
         
         // Construct the API URL with the selected symbol and API key; The symbol and API key are added as query parameters. The encodeURIComponent function is used to encode the symbol and API key correctly for use in a URL
-        var apiUrl = './model/dreamsapi.php?symbol=' + encodeURIComponent(symbol) + '&api_key=' + encodeURIComponent(apiKey);
+        var apiUrl = '../model/dreamsapi.php?symbol=' + encodeURIComponent(symbol) + '&api_key=' + encodeURIComponent(apiKey);
 
         // Makes an AJAX request to the API using the Fetch API
         fetch(apiUrl)

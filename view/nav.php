@@ -7,8 +7,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href=".">Home</a>
-        <a class="nav-link" href="./view/forms.php" >Add/Edit/Delete Symbol</a>
+        <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
+        <a class="nav-link" href="http://www.localhost/dreamcatcher/view/forms.php" >Add/Edit/Delete Symbol</a>
       </div>
     </div>
   </div>

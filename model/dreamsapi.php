@@ -5,53 +5,37 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 include "database.php";
 
-// Validate API key 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET["api_key"])) {
     $apiKey = $_GET["api_key"];
 
-    // fetch all of the information from the specific row in the user table which is determined by the api key
+    // Validates the API key
     $stmt = $db->prepare("SELECT * FROM users WHERE api_key = :api_key");
     $stmt->execute(['api_key' => $apiKey]);
-    $user = $stmt->fetch();
-
-    // If no user found with the provided api key
-    if (!$user) {
-        // Handle invalid API key
+    if (!$stmt->fetch()) {
         echo json_encode(["error" => "Invalid API key"]);
         exit;
     }
 
-    // Select the symbol and the symbol's interpretation information from the dream_symbols table
-    $sql = "SELECT symbol, interpretation FROM dream_symbols";
+    // If a symbol is found, it fetches its interpretation
+    if (isset($_GET['symbol'])) {
+        $symbol = $_GET['symbol'];
+        $stmt = $db->prepare("SELECT interpretation FROM dream_symbols WHERE symbol = :symbol");
+        $stmt->execute(['symbol' => $symbol]);
+        $result = $stmt->fetch();
 
-    // If there is a symbolID
-    if (isset($_GET['symbolID'])) {
-        // add on to sequel statement and filter by symbolID if it is set
-        $sql .= " WHERE symbolID = :symbolID";
-        // Prepare the statement
-        $stmt = $db->prepare($sql);
-        // Bind the 'symbolID' parameter to the value from $_GET ensuring it's a string
-        $stmt->bindValue(':symbolID', filter_input(INPUT_GET, 'symbolID', FILTER_SANITIZE_SPECIAL_CHARS));
+        if ($result) {
+            echo json_encode(["interpretation" => $result['interpretation']]);
+        } else {
+            echo json_encode(["error" => "Symbol not found"]);
+        }
     } else {
-        // Fetch all symbols if no specific symbolID is requested
-        $stmt = $db->prepare($sql);
+        // If no symbol is found, all symbols and their interpretations are displayed
+        $stmt = $db->query("SELECT symbol, interpretation FROM dream_symbols");
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
-
-    // Execute the query
-    $stmt->execute();
-
-    // gets results as an associative array which makes it easier to convert to JSON
-    $dreams = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Return the dream interpretations in JSON format
-    echo json_encode($dreams);
 } else {
-    // Handle cases where API key is missing or request method is not GET
     echo json_encode(["error" => "Invalid request"]);
 }
-
-
-
 
 ?>
 
