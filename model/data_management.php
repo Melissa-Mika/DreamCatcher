@@ -1,48 +1,61 @@
 
 <?php
-// Use PHP to handle form submissions and update the database
+session_start();
 
-// Handlling of form that the user can add, edit, or delete a dream symbol
+include "../model/database.php";
+
+// Handling of form that the user can add, edit, or delete a dream symbol
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST["action"];
-    $symbol = $_POST["symbol"];
-    $interpretation = $_POST["interpretation"] ?? '';
+    
 
     if ($action == "add_symbol") {
+        $symbol = $_POST["symbol"];
+        $interpretation = $_POST["interpretation"] ?? '';
+
         // SQL to add a new symbol
         $stmt = $db->prepare("INSERT INTO dream_symbols (symbol, interpretation) VALUES (:symbol, :interpretation)");
-        $stmt->execute(['symbol' => $symbol, 'interpretation' => $interpretation]);
-    } elseif ($action == "edit_symbol") {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'edit_symbol') {
-            $symbolID = $_POST['symbolID'];
-            $newSymbol = $_POST['new_symbol'];
-            $newInterpretation = $_POST['new_interpretation'];
-
-        // SQL to update the symbol
-        $stmt = $db->prepare("UPDATE dream_symbols SET symbol = :new_symbol, interpretation = :new_interpretation WHERE symbolID = :symbolID");
-        $stmt->execute(['new_symbol' => $newSymbol, 'new_interpretation' => $newInterpretation, 'symbolID' => $symbolID]);
-
-       // Redirect or message after successful update
-       echo "Symbol updated successfully";
+        if ($stmt->execute(['symbol' => $symbol, 'interpretation' => $interpretation])) {
+            // Use the session to send the message that the symbol was successfully added
+            $_SESSION['success_message'] = "Symbol added successfully";
+            header("Location: ../view/forms.php");
+        } else {
+            echo "Error adding symbol: " . $stmt->errorInfo()[2]; // Error details from PDOStatement
         }
         
+
+    } elseif ($action == "edit_symbol") {
+        $symbolID = $_POST['symbolID'];
+        $newSymbol = $_POST['new_symbol'];
+        $newInterpretation = $_POST['new_interpretation'];
+
+        // SQL to update the symbol in the database
+        $stmt = $db->prepare("UPDATE dream_symbols SET symbol = :new_symbol, interpretation = :new_interpretation WHERE symbolID = :symbolID");
+        if ($stmt->execute(['new_symbol' => $newSymbol, 'new_interpretation' => $newInterpretation, 'symbolID' => $symbolID])) {
+            // Use the session to send the message that the symbol was successfully edited
+            $_SESSION['success_message'] = "Symbol edited successfully";
+            header("Location: ../view/forms.php");
+        } else {
+            echo "Error editing symbol: " . $stmt->errorInfo()[2]; // Error details from PDOStatement
+        }
+
     } elseif ($action == "delete_symbol") {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'delete_symbol') {
-            $symbolID = $_POST['symbolID'];
+        // SQL to delete the symbol
+        $symbolID = $_POST['symbolID'];
         
-            // SQL to delete the symbol
-            $stmt = $db->prepare("DELETE FROM dream_symbols WHERE symbolID = :symbolID");
-            $stmt->execute(['symbolID' => $symbolID]);
-        
-            // Redirect or message after successful deletion
-            echo "Symbol deleted successfully";
+        //SQL to delete the symbol from the database
+        $stmt = $db->prepare("DELETE FROM dream_symbols WHERE symbolID = :symbolID");
+        if ($stmt->execute(['symbolID' => $symbolID]))
+        {
+            // Use the session to send the message that the symbol was successfully deleted
+            $_SESSION['success_message'] = "Symbol successfully deleted";
+            header("Location: ../view/forms.php");
+        }
+        } else {
+        echo "Error editing symbol: " . $stmt->errorInfo()[2]; // Error details from PDOStatement)
     }
 
-    /// message after the action is completed
-    echo "Action completed: $action";
 } else {
-    echo "Invalid request";
+    echo "Invalid request method";
 }
-}
-
 ?>

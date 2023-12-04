@@ -5,38 +5,46 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 include "database.php";
 
+// Validate API key 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && !empty($_GET["api_key"])) {
     $apiKey = $_GET["api_key"];
 
-    // Validates the API key
+    // Validate the API key by checking it against the database
     $stmt = $db->prepare("SELECT * FROM users WHERE api_key = :api_key");
     $stmt->execute(['api_key' => $apiKey]);
-    if (!$stmt->fetch()) {
+    $user = $stmt->fetch();
+
+    // If no user found with the provided API key, return an error
+    if (!$user) {
         echo json_encode(["error" => "Invalid API key"]);
         exit;
     }
 
-    // If a symbol is found, it fetches its interpretation
-    if (isset($_GET['symbol'])) {
-        $symbol = $_GET['symbol'];
-        $stmt = $db->prepare("SELECT interpretation FROM dream_symbols WHERE symbol = :symbol");
-        $stmt->execute(['symbol' => $symbol]);
-        $result = $stmt->fetch();
+    // Prepare SQL query to select symbol and interpretation
+    $sql = "SELECT symbol, interpretation FROM dream_symbols";
 
-        if ($result) {
-            echo json_encode(["interpretation" => $result['interpretation']]);
-        } else {
-            echo json_encode(["error" => "Symbol not found"]);
-        }
+    // Check if a symbol is provided in the GET request
+    if (!empty($_GET['symbol'])) {
+        // Add condition to the query to filter by symbol
+        $sql .= " WHERE symbol = :symbol";
+        $stmt = $db->prepare($sql);
+        // Bind the symbol parameter
+        $stmt->bindValue(':symbol', filter_input(INPUT_GET, 'symbol', FILTER_SANITIZE_SPECIAL_CHARS));
     } else {
-        // If no symbol is found, all symbols and their interpretations are displayed
-        $stmt = $db->query("SELECT symbol, interpretation FROM dream_symbols");
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        // Prepare query to fetch all symbols if no specific symbol is provided
+        $stmt = $db->prepare($sql);
     }
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch results as an associative array
+    $dreams = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Return the dream interpretations in JSON format
+    echo json_encode($dreams);
 } else {
+    // Handle cases where API key is missing or request method is not GET
     echo json_encode(["error" => "Invalid request"]);
 }
-
 ?>
-
-

@@ -15,13 +15,14 @@ function generateSymbolDropdown() {
     $dropdownHTML = '<select id="symbolID" name="symbolID" required>';
     $dropdownHTML .= '<option value="" disabled selected>Select a Symbol</option>';
     
-    echo '<select name="symbol">';
+    
     foreach ($symbols as $symbol) {
-        echo '<option value="' . htmlspecialchars($symbol['symbol']) . '">' . htmlspecialchars($symbol['symbol']) . '</option>';
+        $dropdownHTML .= '<option value="' . htmlspecialchars($symbol['symbolID']) . '">' . htmlspecialchars($symbol['symbol']) . '</option>';
     }
-    echo '</select>';
-
+    
+    // close the select tag
     $dropdownHTML .= '</select>';
+
     return $dropdownHTML;
 }
 

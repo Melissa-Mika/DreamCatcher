@@ -6,6 +6,22 @@
 <?php include "../model/functions.php";?>
 <?php include "../model/header.php" ?>
 
+<?php
+// Check for success message
+if (isset($_SESSION['success_message'])) {
+    $successMessage = $_SESSION['success_message'];
+    unset($_SESSION['success_message']); // Clear the message after displaying
+} else {
+    $successMessage = '';
+}
+?>
+
+<?php if ($successMessage): ?>
+    <div class="alert alert-success">
+        <?php echo $successMessage; ?>
+    </div>
+<?php endif; ?>
+
 <script>
     // Retrieve the API key from the PHP session.
     // The 'json_encode' function is used to safely output the PHP string as a JavaScript string.
@@ -17,22 +33,21 @@
 </script>
 
 <h1>The Dream Catcher</h1>
-<h3>Search for a Dream Symbol</h3>
+<h3>A Dream Interpreter</h3>
 
 <div class="container">
 
 <!-- Form to search for symbol in order to get a dream interpretation -->
-<<form class="search_symbol" action="show_dream_info.php" method="GET">
-    <?php generateSymbolDropdown(); ?>
+<form class="search_symbol" action="show_dream_info.php" method="GET">
+    <label for="symbolID">Please choose a dream symbol:</label>
+    <?php echo generateSymbolDropdown(); ?>
     <input type="submit" id="submit" value="Search">
 </form>
 
 
-
-<!-- Form to add dream symbol, edit dream symbol, or delete dream symbol -->
+<!-- Form to add dream symbol, edit dream symbol, or delete a dream symbol -->
 <h3>Add, Edit, or Delete a Dream Symbol</h3>
 
-<form action="data_management.php" class="symbol-form" method="post">
     <label for="action">Choose an action:</label>
     <select name="action" id="action" required onchange="updateFormFields()">
         <option value="" disabled selected>Please choose an action</option>
@@ -40,7 +55,7 @@
         <option value="edit_symbol">Edit a Symbol</option>
         <option value="delete_symbol">Delete a Symbol</option>
     </select>
-</form>
+
 
 <div id="form-fields">
     <!-- The appropriate form will be displayed based on the selected action -->
@@ -52,39 +67,55 @@
         var action = document.getElementById('action').value;
         var formFields = document.getElementById('form-fields');
 
+        // The add_symbol form
         if (action === 'add_symbol') {
             formFields.innerHTML = `
-                    <input type="text" name="symbolID" placeholder="Symbol ID">
+            
+                    <form action="../model/data_management.php" method="POST">
                     <label for="symbol">Symbol:</label>
                     <input type="text" id="symbol" name="symbol" required><br>
 
                     <label for="interpretation">Interpretation:</label>
                     <textarea id="interpretation" name="interpretation" required></textarea><br>
+                    <input type="submit" value="Add Symbol">
+                    <input type="hidden" name="action" value="add_symbol">
+                    </form>
                 `;
         } else if (action === 'edit_symbol')
-        {
+        {   // The edit_symbol form
             formFields.innerHTML = `
-            <label for="symbol_id">Choose a Symbol to Edit:</label>
+                        
+            <form action="../model/data_management.php" method="POST">       
+            <label for="symbolID">Please choose a symbol to edit</label>
             <?php echo generateSymbolDropdown(); ?> 
+
             <label for="new_symbol">New Symbol:</label>
             <input type="text" id="new_symbol" name="new_symbol" required><br>
 
             <label for="new_interpretation">New Interpretation:</label>
             <textarea id="new_interpretation" name="new_interpretation" required></textarea><br>;
 
-            <input type="submit" value="Edit Symbol">`
+            <input type="submit" value="Edit Symbol">
+            <input type="hidden" name="action" value="edit_symbol">
+            </form>
+            `;
         } 
         else if (action === 'delete_symbol') {
-            formFields.innerHTML = `
+        // The delete_symbol form
+        formFields.innerHTML = `
+        <form action="../model/data_management.php" method="post">
         <label for="symbol_id">Choose a Symbol to Delete:</label>
         <?php echo generateSymbolDropdown(); ?> 
-
-        <input type="submit" value="Delete Symbol">`;
+        <input type="submit" value="Delete Symbol">
+        <input type="hidden" name="action" value="delete_symbol">
+        </form>
+        `;
         } 
         else {
             formFields.innerHTML = '';
         }
-    };
+    }
+
 </script>
 
 <!-- Hidden template for dropdown, used in JavaScript -->
@@ -93,5 +124,6 @@
     <?php echo generateSymbolDropdown(); ?> 
 </div>
 
+<!-- Link to display all of the dream symbols and their interpretations -->
 <div><a href="view_all_symbols.php">Show all Dream Symbols</a></div<a href="#" onclick="fetchDreamSymbols(apiKey); return false;">View Dream Symbols</a>
 </div>

@@ -6,7 +6,8 @@ include "../model/functions.php";
 include "../model/database.php";
 ?>
 
-<h1>Dream Catcher</h1>
+<h1>The Dream Catcher</h1>
+<h3>A Dream Interpreter</h3>
 
 <?php $symbols = getAllDreamSymbols(); ?>
 

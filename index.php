@@ -4,39 +4,8 @@
 <?php require_once "model/functions.php";?>
 
 <?php
-/****** Form handling for the add, dit , and delete symbol forms *******/
-// Check if the form has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
-
-    // Common variables for the add, edit, and delete form actions
-    $addSymbol = filter_input(INPUT_POST, 'add_symbol');
-    $editSymbol = filter_input(INPUT_POST, 'edit_symbol');
-    $deleteSymbol = filter_input(INPUT_POST, 'delete_symbol');
-    $interpretation = filter_input(INPUT_POST, 'interpretation');
-    
-    // Adding, editing, and deleting symbols
-    if ($_POST['action'] == 'add_symbol') {
-        // Check if the necessary fields are filled before adding the symbol
-        if (!empty($symbolID) && !empty($addSymbol) && !empty($interpretation)) {
-            // Add the game to the database
-            addSymbolToDatabase($symbolID, $addSymbol, $interpretation);
-        }
-    } else if ($_POST['action'] == 'edit_symbol') {
-        if (!empty($symbolID) && !empty($editSymbol) && !empty($interpretation)) {
-            // Update the symbol in the database
-            updateSymbolInDatabase($symbolID, $editSymbol, $interpretation);
-        }
-    }
-        else if ($_POST['action'] == 'delete_symbol') {
-            if (!empty($symbolID) && !empty($deleteSymbol) && !empty($interpretation)) {
-                // Delete the symbol from database
-                deleteSymbolFromDatabase($symbolID, $deleteSymbol, $interpretation);
-            }
-        }
-}
 
 $symbols = getAllDreamSymbols();
-
 
 ?>    
 
@@ -58,8 +27,10 @@ $symbols = getAllDreamSymbols();
 <body>
 
 <h1>The Dream Catcher</h1>
+<h3>A Dream Interpreter</h3>
+
 <div class="container">
-Please register to obtain API key:
+To use the Dream Catcher, please register your email to obtain an API key:
     <form action="model/register.php" class="register" method="POST">
     <input type="email" name="email" placeholder="Email">
     <input type="submit" value="Register">

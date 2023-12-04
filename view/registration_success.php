@@ -16,15 +16,16 @@ $symbols = getAllDreamSymbols();
 
 ?>
 
-<h1>Welcome to The Dream Catcher</h1>
-<h2>A Dream Interpreter</h2>
+<h1>The Dream Catcher</h1>
+<h3>A Dream Interpreter</h3>
 
 <div class="container">
 <h3>Registration Successful</h3>
 <h4>Your API key is: <?php echo htmlspecialchars($_SESSION['api_key']); ?></h4>
 
-<h3>Select a Dream Symbol</h3>
+<h4>Select a dream symbol to get a dream interpretation:</h4>
     <select id="dreamSymbol" onchange="getInterpretation()">
+    <option value="" disabled selected>Please choose a dream symbol</option>
         <?php foreach ($symbols as $symbol): ?>
             <option value="<?php echo htmlspecialchars($symbol['symbol']); ?>">
                 <?php echo htmlspecialchars($symbol['symbol']); ?>
@@ -55,10 +56,16 @@ $symbols = getAllDreamSymbols();
                 }
                 // Convert the response to JSON
                 return response.json();
+                console.log(data);
             })
             .then(data => {
-                // If API response returns a JSON object with an 'interpretation' field, set the content of the 'interpretation' div to this value; If 'interpretation is not provided, display error message
-                document.getElementById('interpretation').textContent = data.interpretation || 'No interpretation found';
+                if (data.length > 0) {
+                // Since the data is an array, access the first item for its interpretation.
+                document.getElementById('interpretation').textContent = data[0].interpretation;
+            } else {
+                // Handle the case where no matching symbol is found.
+                document.getElementById('interpretation').textContent = 'No interpretation found for this symbol';
+            }
             })
             .catch(error => {
                 // If there is an error during fetch or response processing, log it to the console and show an error message in the 'interpretation' div
