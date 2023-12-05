@@ -1,6 +1,6 @@
 
-# Melissa Mika
-## Dream Catcher
+# The Dream Catcher
+## Melissa Mika
 
 ## https://github.com/Melissa-Mika/DreamCatcher.git
 

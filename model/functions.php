@@ -1,4 +1,5 @@
 
+
 <?php
 
 include "database.php";
@@ -45,10 +46,19 @@ function getAllDreamSymbols() {
 }
 
 
-function addSymbolToDatabase()
-{
-
+function addSymbolToDatabase($symbol, $interpretation) {
+    global $db;
+    $sql = "INSERT INTO dream_symbols (symbol, interpretation) VALUES (:symbol, :interpretation)";
+    try {
+        $stmt = $db->prepare($sql);
+        $stmt->execute(['symbol' => $symbol, 'interpretation' => $interpretation]);
+        return "Symbol added successfully";
+    } catch (PDOException $e) {
+        // Handle error
+        return "Error adding symbol: " . $e->getMessage();
+    }
 }
+
 
 
 function updateSymbolInDatabasae()
