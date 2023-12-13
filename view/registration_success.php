@@ -33,6 +33,7 @@ $symbols = getAllDreamSymbols();
     <h1>The Dream Catcher</h1>
     <h3>A Dream Interpreter</h3>
 
+        <div class="content">
     <div class="container">
         <h3>Registration Successful</h3>
         <p>Your API key is: <strong><?php echo htmlspecialchars($_SESSION['api_key']); ?></strong></p>
@@ -49,9 +50,6 @@ $symbols = getAllDreamSymbols();
 
         <div id="interpretation"></div>
     </div>
-
-
-
 
 <script>
 
@@ -85,6 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 }
 </script>
+
+
+
+
+        
+        <?php include "../model/footer.php";?>
+
 
 </body>
 </html>

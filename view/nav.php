@@ -9,6 +9,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="http://www.localhost/dreamcatcher/index.php">Register</a>
         <a class="nav-link" href="http://www.localhost/dreamcatcher/view/forms.php" >Add/Edit/Delete Symbol</a>
+        <a class="nav-link" href="http://www.localhost/dreamcatcher/view/search_dream_symbols.php" >Search Dream Symbols</a>
       </div>
     </div>
   </div>

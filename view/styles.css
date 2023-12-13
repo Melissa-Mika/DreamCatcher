@@ -1,21 +1,149 @@
 
+ /* I am using Google fonts.  When I was choosing my fonts, I was only getting the link to put in the head of my project.  I couldn't find the CSS links anywhere So I did a google search and learned about the import links you put at the top of your CSS stylesheet and that allows all of your chosen fonts to be available.  Then I can just use the font family to style any text in my project. I hope this is ok that I used the import link */
+ @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Gasoek+One&family=Gloria+Hallelujah&family=Indie+Flower&family=Luckiest+Guy&family=Rubik+Bubbles&family=Zeyada&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Shadows+Into+Light&display=swap');
+
+
 * {
     margin: 0px;
     padding: 0px;
 }
 
+.nav-links {
+    color: darkblue;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+    font-family: 'Bebas Neue';
+    font-size: 35px;
+    font-weight: bold;
+}
+
+a:visited {
+    color: darkblue;
+}
+
+a:hover {
+    color: red;
+}
+
+a.nav-link {
+    font-size: 22px;
+}
+
+.btn {
+    color: white;
+    font-size: 20px;
+}
+
 body {
+    background-color: lightblue;
+    background-image: url(images/clouds.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Index page */
+.register-text {
+    text-align: center;
+    color: darkblue;
+    font-size: 50px;
+    padding-top: 100px;
+    font-family: 'Bebas Neue';
+}
+.register {
+    text-align: center;
+    color: blue;
+    font-size: 25px;
+}
+
+/* site container method to keep footer at the bottom of the page*/
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.all-symbols {
     background-color: lightblue;
 }
 
 h1 {
     text-align: center;
     font-weight: bold;
-
+    font-family: 'Bebas Neue';
+    font-size: 100px;
 }
 
 h3 {
     text-align: center;
     font-weight: bold;
+    font-family: 'Shadows Into Light';
+    font-size: 50px;
+}
+
+table, th, td {
+    border: 1px solid;
+    padding-bottom: 25px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Add, Edit, Delete symbol page */
+#action {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.change-symbol {
+    font-family: 'Bebas Neue';
+    padding-top: 100px;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.change-form {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.add-form {
+    text-align: center;
+}
+
+.edit-form {
+    text-align: center;
+}
+
+.delete-form {
+    text-align: center;
+}
+
+#symbolID {
+    text-align: venter;
+}
+
+.add-label, .interpretation-label, .edit-label, .new-symbol-label, .delete-label, .action-label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/* Footer styling to keep it at the bottom of the page */
+.footer {
+    color: darkblue;
+    text-align:center;
+    font-size: 20px;
 }
 

@@ -16,7 +16,7 @@ function generateSymbolDropdown() {
     $dropdownHTML = '<select id="symbolID" name="symbolID" required>';
     $dropdownHTML .= '<option value="" disabled selected>Select a Symbol</option>';
     
-    
+    // iterate through array and appoint symbols to the option tags
     foreach ($symbols as $symbol) {
         $dropdownHTML .= '<option value="' . htmlspecialchars($symbol['symbolID']) . '">' . htmlspecialchars($symbol['symbol']) . '</option>';
     }

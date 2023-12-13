@@ -9,10 +9,12 @@ include "../model/functions.php";
 include "../model/database.php";
 ?>
 
+<?php $symbols = getAllDreamSymbols(); ?>
+
+<body class="all-symbols" style="background-color: lightblue; background-image:none;">
 <h1>The Dream Catcher</h1>
 <h3>A Dream Interpreter</h3>
 
-<?php $symbols = getAllDreamSymbols(); ?>
 
 <div class="container">
 <table id="dreamSymbolsTable">
@@ -28,3 +30,6 @@ include "../model/database.php";
     <?php endforeach; ?>
 </table>
 </div>
+<?php include "../model/footer.php";?>
+
+</body>
