@@ -46,7 +46,7 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Index page */
+/* Index page/ Registration Page */
 .register-text {
     text-align: center;
     color: darkblue;
@@ -60,6 +60,42 @@ body {
     font-size: 25px;
 }
 
+.registration-successful {
+    font-family: 'Bebas Neue';
+    padding-top: 50px;
+    color: darkblue;
+    font-size: 60px;
+}
+
+.api-key {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#dreamSymbol {
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+
+h4 {
+    padding-top: 25px;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 40px;
+    color: darkblue;
+}
+
+#interpretation {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Bebas Neue';
+    padding-top: 25px;
+}
+
 /* site container method to keep footer at the bottom of the page*/
 .container {
     display: flex;
@@ -70,10 +106,8 @@ body {
 .footer {
     margin-top: auto;
 }
+/* End of site container */
 
-.all-symbols {
-    background-color: lightblue;
-}
 
 h1 {
     text-align: center;
@@ -89,8 +123,13 @@ h3 {
     font-size: 50px;
 }
 
+/* Show all symbols page */
+.all-symbols {
+    background-color: rgb(98, 94, 231);
+}
+
 table, th, td {
-    border: 1px solid;
+    border: 2px solid;
     padding-bottom: 25px;
 }
 
@@ -98,12 +137,21 @@ th, td {
     padding: 10px;
     text-align: center;
     font-weight: bold;
+    color: white;
+}
+
+th {
+    font-family: 'Bebas Neue';
+    font-size: 30px;
+    color: white;
 }
 
 /* Add, Edit, Delete symbol page */
 #action {
     margin-left: auto;
     margin-right: auto;
+    padding: 5px;
+    font-weight: bold;
 }
 
 .change-symbol {
@@ -131,19 +179,47 @@ th, td {
 }
 
 #symbolID {
-    text-align: venter;
+    text-align: center;
 }
 
 .add-label, .interpretation-label, .edit-label, .new-symbol-label, .delete-label, .action-label {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
 }
 
+/* Search symbols page */
+.search-symbols {
+    text-align: center;
+}
 
-/* Footer styling to keep it at the bottom of the page */
+.view-all-symbols {
+    text-align: center;
+    padding: 10px;
+}
+
+.search-symbol {
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#submit {
+    padding: 5px;
+    background-color: blue;
+    color: white;
+}
+
+
+/* Footer */
 .footer {
     color: darkblue;
     text-align:center;
     font-size: 20px;
+}
+
+.footer-text {
+    font-weight: bold;
+    font-family: 'Bebas Neue';
 }
 

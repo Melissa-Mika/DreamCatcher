@@ -21,6 +21,7 @@
 
                 // Fetch the result
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                // If result found, assign symbol and dream interpretation to their variables
                 if ($result) {
                     $symbol = $result['symbol'];
                     $interpretation = $result['interpretation'];

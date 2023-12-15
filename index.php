@@ -50,7 +50,7 @@ include "./model/functions.php";
     </div>
 
     <script>
-        // Function to fetch dream information and update the DOM
+        // Function to fetch dream information from the API and update the DOM
         function getInterpretation() {
             axios.get('dreamsapi.php?')  
                 .then(function (response) {
@@ -60,15 +60,17 @@ include "./model/functions.php";
                         html += `<li>${dream.symbol}: ${dream.interpretation}</li>`;
                     });
                     html += '</ul>';
+                    // Display the dream interpretation
                     document.getElementById('interpretationResponse').innerHTML = html;
                 })  
                 .catch(function (error) { 
+                    // If error occurs, display error message
                     console.log("An error occurred");
                 });
             }
     </script>
 
-    
+    <!-- Include footer -->
     <?php include "./model/footer.php";?>
 
         

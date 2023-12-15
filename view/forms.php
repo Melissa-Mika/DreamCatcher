@@ -70,7 +70,7 @@ if (isset($_SESSION['success_message'])) {
 
                     <label for="interpretation" class="interpretation-label">Interpretation:</label>
                     <textarea id="interpretation" name="interpretation" required></textarea><br>
-                    <input type="submit" value="Add Symbol">
+                    <input type="submit" value="Add Symbol" class="btn btn-outline-light">
                     <input type="hidden" name="action" value="add_symbol" class="btn btn-outline-light">
                     </form>
                     </div>
@@ -89,7 +89,7 @@ if (isset($_SESSION['success_message'])) {
             <label for="new_interpretation" class="interpretation-label">New Interpretation:</label>
             <textarea id="new_interpretation" name="new_interpretation" required></textarea><br>;
 
-            <input type="submit" value="Edit Symbol">
+            <input type="submit" value="Edit Symbol" class="btn btn-outline-light">
             <input type="hidden" name="action" value="edit_symbol">
             </form>
             </div>
@@ -101,7 +101,7 @@ if (isset($_SESSION['success_message'])) {
         <form action="../model/data_management.php" method="post">
         <label for="symbol_id" class="delete-label">Choose a Symbol to Delete:</label>
         <?php echo generateSymbolDropdown(); ?> 
-        <input type="submit" value="Delete Symbol">
+        <input type="submit" value="Delete Symbol" class="btn btn-outline-light">
         <input type="hidden" name="action" value="delete_symbol">
         </form>
         </div>

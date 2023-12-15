@@ -16,7 +16,7 @@ function generateSymbolDropdown() {
     $dropdownHTML = '<select id="symbolID" name="symbolID" required>';
     $dropdownHTML .= '<option value="" disabled selected>Select a Symbol</option>';
     
-    // iterate through array and appoint symbols to the option tags
+    // iterate through array and assign symbols to the option tags
     foreach ($symbols as $symbol) {
         $dropdownHTML .= '<option value="' . htmlspecialchars($symbol['symbolID']) . '">' . htmlspecialchars($symbol['symbol']) . '</option>';
     }
@@ -50,11 +50,17 @@ function addSymbolToDatabase($symbol, $interpretation) {
     global $db;
     $sql = "INSERT INTO dream_symbols (symbol, interpretation) VALUES (:symbol, :interpretation)";
     try {
+        // Prepare the SQL statement for execution.
         $stmt = $db->prepare($sql);
+
+         // Execute the statement with the provided $symbol and $interpretation values.
+        // The array maps the placeholders in the SQL statement to the actual values.
         $stmt->execute(['symbol' => $symbol, 'interpretation' => $interpretation]);
+
+        // If execution is successful, return a success message.
         return "Symbol added successfully";
     } catch (PDOException $e) {
-        // Handle error
+        // If an exception occurs during the execution of the try block, catch it and return an error message with the exception details.
         return "Error adding symbol: " . $e->getMessage();
     }
 }

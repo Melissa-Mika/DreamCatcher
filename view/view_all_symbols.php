@@ -11,7 +11,7 @@ include "../model/database.php";
 
 <?php $symbols = getAllDreamSymbols(); ?>
 
-<body class="all-symbols" style="background-color: lightblue; background-image:none;">
+<body class="all-symbols" style="background-color: rgb(98, 94, 231); background-image:none;">
 <h1>The Dream Catcher</h1>
 <h3>A Dream Interpreter</h3>
 

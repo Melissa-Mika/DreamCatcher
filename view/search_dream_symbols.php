@@ -13,14 +13,14 @@
 <div class="container search_symbols_form">
 
 <!-- Form to search for symbol in order to get a dream interpretation -->
-<form class="search_symbols" action="show_dream_info.php" method="GET">
-    <label for="symbolID">Please choose a dream symbol:</label>
+<form class="search-symbols" action="show_dream_info.php" method="GET">
+    <label for="symbolID" class="search-symbol">Please choose a dream symbol:</label>
     <?php echo generateSymbolDropdown(); ?>
     <input type="submit" id="submit" value="Search">
 </form>
 
 <!-- Link to display all of the dream symbols and their interpretations -->
-<div>
+<div class="view-all-symbols">
 <a href="view_all_symbols.php">
 <button type="button" class="btn btn-outline-light">View All Dream Symbols</button>
 </a>
