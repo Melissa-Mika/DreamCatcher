@@ -11,4 +11,5 @@
 ## - To search for a dream symbol and obtain the dream interpretation, utilize the dropdown menu to choose a symbol
 ## - A dream interpretation will be displayed
 ## - You may also utilize the link to view all dream symbols and their interpretations
-## - As part of the navigation, there is a link to add, edit, or delete dream symbols.  After you select you action, the appropriate form is displayed.
+## - As part of the navigation, there is a link to add, edit, or delete dream symbols.  
+##   After you select your choice, the appropriate form is displayed.
